@@ -1,0 +1,6 @@
+{
+  "name": "MAENDELEO GROUP",
+  "description": "Financial management and alternative credit scoring for the Maendeleo Chama group.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["Data Visualization", "Risk Modeling", "Loan Management"]
+}

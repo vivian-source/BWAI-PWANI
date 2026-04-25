@@ -1,0 +1,78 @@
+{
+  "entities": {
+    "Member": {
+      "title": "Member",
+      "description": "A member of the Maendeleo Chama group.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "contact": { "type": "string" },
+        "joinDate": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["Active", "Inactive", "Suspended"] },
+        "weeklySavings": { "type": "number" },
+        "txFreq": { "type": "number" },
+        "avgTxValue": { "type": "number" },
+        "utilityReliability": { "type": "number" },
+        "businessSmsVolume": { "type": "number" },
+        "fulizaDep": { "type": "number" },
+        "chamaScore": { "type": "number" },
+        "peerVouches": { "type": "number" },
+        "stockVelocity": { "type": "number" },
+        "assets": { "type": "array", "items": { "type": "string" } },
+        "punctualityScore": { "type": "number" },
+        "loanRepaymentHistory": { "type": "number" },
+        "loanHistory": { "type": "array", "items": { "$ref": "LoanRecord" } },
+        "contributionHistory": { "type": "array", "items": { "$ref": "ContributionRecord" } }
+      },
+      "required": ["id", "name", "role", "contact", "joinDate", "status", "weeklySavings"]
+    },
+    "LoanRecord": {
+      "title": "Loan Record",
+      "description": "A record of a loan taken by a member.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "amount": { "type": "number" },
+        "date": { "type": "string", "format": "date" },
+        "status": { "type": "string", "enum": ["Repaid", "Ongoing", "Defaulted"] },
+        "repaymentProgress": { "type": "number" }
+      },
+      "required": ["id", "amount", "date", "status", "repaymentProgress"]
+    },
+    "ContributionRecord": {
+      "title": "Contribution Record",
+      "description": "A record of a weekly savings contribution.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "amount": { "type": "number" },
+        "onTime": { "type": "boolean" },
+        "method": { "type": "string" }
+      },
+      "required": ["id", "timestamp", "amount", "onTime", "method"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "An administrator of the system.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" }
+      },
+      "required": ["uid", "email"]
+    }
+  },
+  "firestore": {
+    "/members/{memberId}": {
+      "schema": "Member",
+      "description": "Storage for all Chama members."
+    },
+    "/admins/{adminId}": {
+      "schema": "Admin",
+      "description": "List of system administrators."
+    }
+  }
+}
